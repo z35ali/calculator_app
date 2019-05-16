@@ -49,7 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Expanded( // Buttons takes up all vertical space
       child: new OutlineButton(
         padding: new EdgeInsets.all(24.0),
-        child: new Text(buttonText),
+        child: new Text(buttonText,
+        style: TextStyle(
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold
+        )),
         onPressed: () => {},
       ),
     );
