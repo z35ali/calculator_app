@@ -44,7 +44,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  String output = "0";
   Widget createButtons(String buttonText){
     return new Expanded( // Buttons takes up all vertical space
       child: new OutlineButton(
@@ -76,7 +76,16 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: new Container(
         child: new Column(children: <Widget>[
-          new Text("0"),
+          new Container(
+            alignment: Alignment.centerRight ,
+              padding: new EdgeInsets.symmetric(
+            vertical: 24.0,
+          horizontal: 12.0
+        ),
+              child: new Text(output, style: new TextStyle(
+            fontSize: 48.0,
+            fontWeight: FontWeight.bold
+          ))),
 
           new Expanded(child: new Divider(),
           ),
