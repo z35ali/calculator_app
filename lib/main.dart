@@ -67,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       decimal = false;
 
 
+
     }else if (buttonText == "."){
       if(_output.contains(".")){
         print("Already has a decimal");
@@ -93,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
       num1 = 0.0;
       num2 = 0.0;
       operand = "0.0";
+
 
 
     }else{
@@ -126,6 +128,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }else{
       buttonColor = Colors.white;
       textColor = Colors.black;
+    }
+    if (buttonText == operand){
+      buttonColor = Colors.black26;
+      textColor = Colors.white;
     }
     return new Expanded( // Buttons takes up all vertical space
       child: new RaisedButton(
