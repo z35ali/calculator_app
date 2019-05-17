@@ -45,11 +45,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String output = "0";
-
   String _output = "0";
   double num1 = 0.0;
   double num2 = 0.0;
   String operand = ""; // +, -, X, or /
+  bool decimal = false;
+
 
   buttonPressed(String buttonText){
 
@@ -58,10 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
       num1 = 0.0;
       num2 = 0.0;
       operand = ""; // +, -, X, or /
+      decimal = false;
     }else if (buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/"){
 
       num1 = double.parse(output);
       operand = buttonText;
+      decimal = false;
 
 
     }else if (buttonText == "."){
@@ -69,73 +72,108 @@ class _MyHomePageState extends State<MyHomePage> {
         print("Already has a decimal");
         return;
       }else{
+        decimal = true;
         _output = _output + buttonText;
       }
     }else if (buttonText == "="){
       num2 = double.parse(output);
 
-          if (operand == "+"){
+      if (operand == "+"){
         _output = (num1 + num2).toString();
-          }
-          if (operand == "-"){
+      }
+      if (operand == "-"){
         _output = (num1 - num2).toString();
-          }
-          if (operand == "X"){
+      }
+      if (operand == "X"){
         _output = (num1 * num2).toString();
-          }
-          if (operand == "/"){
+      }
+      if (operand == "/"){
         _output = (num1 / num2).toString();
-          }
+      }
+      num1 = 0.0;
+      num2 = 0.0;
+      operand = "0.0";
 
-          num1 = 0.0;
-          num2 = 0.0;
-          operand = "";
 
     }else{
-      _output = "0";
+      print(decimal);
+      if (!decimal) {
+        _output = "";
+      }
       _output = _output + buttonText;
+
     }
 
-    print(_output);
 
     setState(() {
-      output = double.parse(_output).toStringAsFixed(2); //Precision 2 decimal places
+      if (_output.toString().length > 8 )
+      output = double.parse(_output).toStringAsFixed(8);
+      else
+        output = _output;
     });
 
   }
 
   Widget createButtonsVertical(String buttonText){
+    Color buttonColor;
+    Color textColor;
+    if (buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/"){
+      buttonColor = Colors.white54;
+      textColor = Colors.black;
+    }else if (buttonText == "="){
+      buttonColor = Colors.orange;
+      textColor = Colors.white;
+    }else{
+      buttonColor = Colors.white;
+      textColor = Colors.black;
+    }
     return new Expanded( // Buttons takes up all vertical space
-      child: new OutlineButton(
+      child: new RaisedButton(
         padding: new EdgeInsets.all(24.0),
         child: new Text(buttonText,
-        style: TextStyle(
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold
-        )),
+            style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: textColor
+            )),
         onPressed: () =>
-          buttonPressed(buttonText)
+            buttonPressed(buttonText)
         ,
+        color: buttonColor,
       ),
     );
   }
 
   Widget createButtonsHorizontal(String buttonText){
+    Color buttonColor;
+    Color textColor;
+    if (buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/"){
+      buttonColor = Colors.white54;
+      textColor = Colors.black;
+    }else if (buttonText == "="){
+      buttonColor = Colors.orange;
+      textColor = Colors.white;
+    }else{
+      buttonColor = Colors.white;
+      textColor = Colors.black;
+    }
     return new Expanded( // Buttons takes up all vertical space
-      child: new OutlineButton(
+      child: new RaisedButton(
         padding: new EdgeInsets.symmetric(
-          vertical: 12.0,
-          horizontal: 0.0
+            vertical: 12.0,
+            horizontal: 0.0
         ),
 
         child: new Text(buttonText,
             style: TextStyle(
                 fontSize: 20.0,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
+                color: textColor
             )),
         onPressed: () =>
             buttonPressed(buttonText)
         ,
+        color: buttonColor,
       ),
     );
   }
@@ -155,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ))),
 
           new Expanded(child: new Divider(
-            color: Colors.white
+              color: Colors.white
           ),
           ),
 
@@ -203,7 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _buildHorizontalLayout(){
-     return new Container(
+    return new Container(
         child: new Column(children: <Widget>[
           new Container(
               alignment: Alignment.centerRight ,
@@ -217,7 +255,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ))),
 
           new Expanded(child: new Divider(
-            color: Colors.white
+              color: Colors.white
           ),
           ),
 
@@ -275,11 +313,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+        ),
 
         body: OrientationBuilder(
           builder: (context, orientation) {
@@ -287,7 +325,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ? _buildVerticalLayout()
                 : _buildHorizontalLayout();
           },
-    ));
+        ));
 
   }
 }
