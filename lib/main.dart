@@ -46,8 +46,62 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String output = "0";
 
+  String _output = "0";
+  double num1 = 0.0;
+  double num2 = 0.0;
+  String operand = ""; // +, -, X, or /
+
   buttonPressed(String buttonText){
-    print(buttonText);
+
+    if (buttonText == "CLEAR"){
+      _output = "0";
+      num1 = 0.0;
+      num2 = 0.0;
+      operand = ""; // +, -, X, or /
+    }else if (buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/"){
+
+      num1 = double.parse(output);
+      operand = buttonText;
+
+
+    }else if (buttonText == "."){
+      if(_output.contains(".")){
+        print("Already has a decimal");
+        return;
+      }else{
+        _output = _output + buttonText;
+      }
+    }else if (buttonText == "="){
+      num2 = double.parse(output);
+
+          if (operand == "+"){
+        _output = (num1 + num2).toString();
+          }
+          if (operand == "-"){
+        _output = (num1 - num2).toString();
+          }
+          if (operand == "X"){
+        _output = (num1 * num2).toString();
+          }
+          if (operand == "/"){
+        _output = (num1 / num2).toString();
+          }
+
+          num1 = 0.0;
+          num2 = 0.0;
+          operand = "";
+
+    }else{
+      _output = "0";
+      _output = _output + buttonText;
+    }
+
+    print(_output);
+
+    setState(() {
+      output = double.parse(_output).toStringAsFixed(2); //Precision 2 decimal places
+    });
+
   }
 
   Widget createButtons(String buttonText){
