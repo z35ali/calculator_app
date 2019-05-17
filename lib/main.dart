@@ -236,7 +236,16 @@ class _MyHomePageState extends State<MyHomePage> {
   _buildVerticalLayout(){
     return new Container(
         child: new Column(children: <Widget>[
-
+          new Container(
+              alignment: Alignment.centerRight ,
+              padding: new EdgeInsets.symmetric(
+                  vertical: 24.0,
+                  horizontal: 12.0
+              ),
+              child: new Text(num1.toString() + " " + operand, style: new TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold
+              ))),
       new Container(
           alignment: Alignment.centerRight ,
           padding: new EdgeInsets.symmetric(
@@ -247,16 +256,7 @@ class _MyHomePageState extends State<MyHomePage> {
               fontSize: 48.0,
               fontWeight: FontWeight.bold
           ))),
-      new Container(
-          alignment: Alignment.centerRight ,
-          padding: new EdgeInsets.symmetric(
-              vertical: 24.0,
-              horizontal: 12.0
-          ),
-          child: new Text(num1.toString() + " " + operand, style: new TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold
-          ))),
+
           new Expanded(child: new Divider(
               color: Colors.white
           ),
@@ -313,16 +313,6 @@ class _MyHomePageState extends State<MyHomePage> {
           new Container(
               alignment: Alignment.centerRight ,
               padding: new EdgeInsets.symmetric(
-                  vertical: 12.0,
-                  horizontal: 12.0
-              ),
-              child: new Text(output, style: new TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold
-              ))),
-          new Container(
-              alignment: Alignment.centerRight ,
-              padding: new EdgeInsets.symmetric(
                   vertical: 3.0,
                   horizontal: 12.0
               ),
@@ -330,6 +320,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold
               ))),
+          new Container(
+              alignment: Alignment.centerRight ,
+              padding: new EdgeInsets.symmetric(
+                  vertical: 12.0,
+                  horizontal: 12.0
+              ),
+              child: new Text(output, style: new TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold
+              ))),
+
           new Expanded(child: new Divider(
               color: Colors.white
           ),
