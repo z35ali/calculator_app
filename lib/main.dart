@@ -74,7 +74,6 @@ class _MyHomePageState extends State<MyHomePage> {
         _output += "-";
       }else {
         _output = (double.parse(_output) * -1).toString();
-        num1 = double.parse(_output);
       }
 
 
@@ -88,7 +87,11 @@ class _MyHomePageState extends State<MyHomePage> {
       }else {
         operand = buttonText;
         nextNum = true;
+
       }
+
+
+
 
 
     }else if (buttonText == "."){
@@ -120,10 +123,11 @@ class _MyHomePageState extends State<MyHomePage> {
       if (operand == "/"){
         _output = (num1 / num2).toString();
       }
-      num1 = 0.0;
+      num1 = double.parse(_output);
       num2 = 0.0;
       operand = "";
       firstOperand = operand;
+
 
 
 
@@ -131,12 +135,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (nextNum){
         _output = "";
+
         _output = _output + buttonText;
         nextNum = false;
 
       }else{
         _output = _output + buttonText;
-
 
       }
 
@@ -147,7 +151,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
 
-      output = _output;
+      if (_output.length > 20) {
+        output = _output.substring(0, 20);
+      }else{
+        output = _output;
+      }
 
     });
 
@@ -239,7 +247,16 @@ class _MyHomePageState extends State<MyHomePage> {
               fontSize: 48.0,
               fontWeight: FontWeight.bold
           ))),
-
+      new Container(
+          alignment: Alignment.centerRight ,
+          padding: new EdgeInsets.symmetric(
+              vertical: 24.0,
+              horizontal: 12.0
+          ),
+          child: new Text(num1.toString() + " " + operand, style: new TextStyle(
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold
+          ))),
           new Expanded(child: new Divider(
               color: Colors.white
           ),
