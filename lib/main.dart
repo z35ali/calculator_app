@@ -70,8 +70,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     }
     }else if (buttonText == "NEG"){
-      _output = (double.parse(_output)*-1.0).toString();
+      if (_output == ""){
+        _output += "-";
+      }else {
+        _output = (double.parse(_output) * -1).toString();
         num1 = double.parse(_output);
+      }
 
 
     }else if (buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/") {
