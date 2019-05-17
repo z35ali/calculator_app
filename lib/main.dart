@@ -123,7 +123,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget createButtonsHorizontal(String buttonText){
     return new Expanded( // Buttons takes up all vertical space
       child: new OutlineButton(
-        padding: new EdgeInsets.all(0.0),
+        padding: new EdgeInsets.symmetric(
+          vertical: 12.0,
+          horizontal: 0.0
+        ),
+
         child: new Text(buttonText,
             style: TextStyle(
                 fontSize: 20.0,
