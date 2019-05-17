@@ -69,6 +69,11 @@ class _MyHomePageState extends State<MyHomePage> {
     if (_output.length > 0) {
       _output = _output.substring(0, output.length - 1);
 
+      if (nextNum){
+        expression += _output;
+      }else {
+        expression = _output;
+      }
     }
     }else if (buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/") {
       num1 = double.parse(output);
@@ -127,11 +132,11 @@ class _MyHomePageState extends State<MyHomePage> {
       if (nextNum){
         _output = "";
         _output = _output + buttonText;
-        expression += _output;
         nextNum = false;
+        expression += buttonText;
       }else{
         _output = _output + buttonText;
-        expression += buttonText;
+        expression += _output.substring(_output.length-1, _output.length);
       }
 
 
@@ -140,11 +145,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
     setState(() {
-      if (_output.toString().length > 8 ) {
+      if ( _output.contains(".") && _output.substring(_output.indexOf("."), _output.length).length >8) {
+        _output =  _output.substring(0,1)+_output.substring(_output.indexOf("."), _output.indexOf(".") + 9);
+      }
         output = _output;
 
-      } else
-        output = _output;
     });
 
   }
