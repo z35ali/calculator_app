@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 
-  Widget createButtons(String buttonText){
+  Widget createButtonsVertical(String buttonText){
     return new Expanded( // Buttons takes up all vertical space
       child: new OutlineButton(
         padding: new EdgeInsets.all(24.0),
@@ -118,6 +118,147 @@ class _MyHomePageState extends State<MyHomePage> {
         ,
       ),
     );
+  }
+
+  Widget createButtonsHorizontal(String buttonText){
+    return new Expanded( // Buttons takes up all vertical space
+      child: new OutlineButton(
+        padding: new EdgeInsets.all(0.0),
+        child: new Text(buttonText,
+            style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold
+            )),
+        onPressed: () =>
+            buttonPressed(buttonText)
+        ,
+      ),
+    );
+  }
+
+  _buildVerticalLayout(){
+    return new Container(
+        child: new Column(children: <Widget>[
+          new Container(
+              alignment: Alignment.centerRight ,
+              padding: new EdgeInsets.symmetric(
+                  vertical: 24.0,
+                  horizontal: 12.0
+              ),
+              child: new Text(output, style: new TextStyle(
+                  fontSize: 48.0,
+                  fontWeight: FontWeight.bold
+              ))),
+
+          new Expanded(child: new Divider(
+            color: Colors.white
+          ),
+          ),
+
+          Column(
+            children: <Widget>[
+              new Row(
+                  children: [
+                    createButtonsVertical("7"),
+                    createButtonsVertical("8"),
+                    createButtonsVertical("9"),
+                    createButtonsVertical("/")
+                  ]),
+              new Row(
+                  children: [
+                    createButtonsVertical("4"),
+                    createButtonsVertical("5"),
+                    createButtonsVertical("6"),
+                    createButtonsVertical("X")
+                  ]),
+              new Row(
+                  children: [
+                    createButtonsVertical("1"),
+                    createButtonsVertical("2"),
+                    createButtonsVertical("3"),
+                    createButtonsVertical("-")
+                  ]),
+              new Row(
+                  children: [
+                    createButtonsVertical("."),
+                    createButtonsVertical("0"),
+                    createButtonsVertical("00"),
+                    createButtonsVertical("+")
+                  ]),
+              new Row(
+                  children: [
+                    createButtonsVertical("CLEAR"),
+                    createButtonsVertical("=")
+                  ]),
+
+
+            ],
+          )
+        ],
+        ));
+  }
+
+  _buildHorizontalLayout(){
+     return new Container(
+        child: new Column(children: <Widget>[
+          new Container(
+              alignment: Alignment.centerRight ,
+              padding: new EdgeInsets.symmetric(
+                  vertical: 12.0,
+                  horizontal: 12.0
+              ),
+              child: new Text(output, style: new TextStyle(
+                  fontSize: 48.0,
+                  fontWeight: FontWeight.bold
+              ))),
+
+          new Expanded(child: new Divider(
+            color: Colors.white
+          ),
+          ),
+
+          Column(
+            children: <Widget>[
+              new Row(
+                  children: [
+                    createButtonsHorizontal("7"),
+                    createButtonsHorizontal("8"),
+                    createButtonsHorizontal("9"),
+                    createButtonsHorizontal("/")
+                  ]),
+              new Row(
+                  children: [
+                    createButtonsHorizontal("4"),
+                    createButtonsHorizontal("5"),
+                    createButtonsHorizontal("6"),
+                    createButtonsHorizontal("X")
+                  ]),
+              new Row(
+                  children: [
+                    createButtonsHorizontal("1"),
+                    createButtonsHorizontal("2"),
+                    createButtonsHorizontal("3"),
+                    createButtonsHorizontal("-")
+
+                  ]),
+              new Row(
+                  children: [
+                    createButtonsHorizontal("."),
+                    createButtonsHorizontal("0"),
+                    createButtonsHorizontal("00"),
+                    createButtonsHorizontal("+")
+                  ]),
+              new Row(
+                  children: [
+                    createButtonsHorizontal("CLEAR"),
+                    createButtonsHorizontal("=")
+                  ]),
+
+
+            ],
+          )
+        ],
+        ));
   }
 
 
@@ -135,62 +276,14 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: new Container(
-        child: new Column(children: <Widget>[
-          new Container(
-            alignment: Alignment.centerRight ,
-              padding: new EdgeInsets.symmetric(
-            vertical: 24.0,
-          horizontal: 12.0
-        ),
-              child: new Text(output, style: new TextStyle(
-            fontSize: 48.0,
-            fontWeight: FontWeight.bold
-          ))),
 
-          new Expanded(child: new Divider(),
-          ),
+        body: OrientationBuilder(
+          builder: (context, orientation) {
+            return orientation == Orientation.portrait
+                ? _buildVerticalLayout()
+                : _buildHorizontalLayout();
+          },
+    ));
 
-    Column(
-      children: <Widget>[
-        new Row(
-              children: [
-               createButtons("7"),
-              createButtons("8"),
-        createButtons("9"),
-        createButtons("/")
-            ]),
-        new Row(
-            children: [
-              createButtons("4"),
-              createButtons("5"),
-              createButtons("6"),
-              createButtons("X")
-            ]),
-        new Row(
-            children: [
-              createButtons("1"),
-              createButtons("2"),
-              createButtons("3"),
-              createButtons("-")
-            ]),
-        new Row(
-            children: [
-              createButtons("."),
-              createButtons("0"),
-              createButtons("00"),
-              createButtons("+")
-            ]),
-        new Row(
-            children: [
-              createButtons("CLEAR"),
-              createButtons("=")
-            ]),
-
-
-      ],
-    )
-      ],
-    )));
   }
 }
