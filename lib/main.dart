@@ -50,16 +50,14 @@ class _MyHomePageState extends State<MyHomePage> {
   double num2 = 0.0;
   String operand = ""; // +, -, X, or /
   bool nextNum = false;
-  String expression = "";
   String firstOperand = "";
 
 
 
   buttonPressed(String buttonText){
 
-    if (buttonText == "CLEAR") {
+    if (buttonText == "CL") {
       _output = "";
-      expression = "";
       num1 = 0.0;
       num2 = 0.0;
       operand = ""; // +, -, X, or /
@@ -69,28 +67,23 @@ class _MyHomePageState extends State<MyHomePage> {
     if (_output.length > 0) {
       _output = _output.substring(0, output.length - 1);
 
-      if (nextNum){
-        expression += _output;
-      }else {
-        expression = _output;
-      }
-    }
-    }else if (buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/") {
-      num1 = double.parse(output);
-      operand = buttonText;
-      nextNum = true;
 
+    }
+    }else if (buttonText == "NEG"){
+      _output = (double.parse(_output)*-1.0).toString();
+
+
+    }else if (buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/") {
 
       if (firstOperand == "") {
+        num1 = double.parse(output);
+        operand = buttonText;
         firstOperand = operand;
-        expression += " " + operand + " ";
-      }else{
-        int firstSpace = expression.indexOf(" ");
-        expression = expression.substring(0, firstSpace+1) + operand  + expression.substring(firstSpace+2, expression.length);
-        num1 = double.parse(expression.substring(0, firstSpace+1));
+        nextNum = true;
+      }else {
+        operand = buttonText;
+        nextNum = true;
       }
-
-
 
 
     }else if (buttonText == "."){
@@ -100,13 +93,15 @@ class _MyHomePageState extends State<MyHomePage> {
       }else{
 
         _output = _output + buttonText;
-        expression += buttonText;
+
 
 
       }
     }else if (buttonText == "="){
       num2 = double.parse(output);
-      expression += " = ";
+      print(num1.toString() + num2.toString() + operand);
+
+
 
       if (operand == "+"){
         _output = (num1 + num2).toString();
@@ -120,10 +115,10 @@ class _MyHomePageState extends State<MyHomePage> {
       if (operand == "/"){
         _output = (num1 / num2).toString();
       }
-      print(num1.toString()+ " " +operand+ " "+ num2.toString());
       num1 = 0.0;
       num2 = 0.0;
       operand = "";
+      firstOperand = operand;
 
 
 
@@ -133,10 +128,11 @@ class _MyHomePageState extends State<MyHomePage> {
         _output = "";
         _output = _output + buttonText;
         nextNum = false;
-        expression += buttonText;
+
       }else{
         _output = _output + buttonText;
-        expression += _output.substring(_output.length-1, _output.length);
+
+
       }
 
 
@@ -145,10 +141,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
     setState(() {
-      if ( _output.contains(".") && _output.substring(_output.indexOf("."), _output.length).length >8) {
-        _output =  _output.substring(0,1)+_output.substring(_output.indexOf("."), _output.indexOf(".") + 9);
-      }
-        output = _output;
+
+      output = _output;
 
     });
 
@@ -229,16 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _buildVerticalLayout(){
     return new Container(
         child: new Column(children: <Widget>[
-          new Container(
-              alignment: Alignment.centerRight ,
-              padding: new EdgeInsets.symmetric(
-                  vertical: 24.0,
-                  horizontal: 12.0
-              ),
-              child: new Text(expression, style: new TextStyle(
-                  fontSize: 28.0,
-                  fontWeight: FontWeight.bold
-              ))),
+
       new Container(
           alignment: Alignment.centerRight ,
           padding: new EdgeInsets.symmetric(
@@ -287,8 +272,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ]),
               new Row(
                   children: [
-                    createButtonsVertical("CLEAR"),
+                    createButtonsVertical("CL"),
                     createButtonsVertical("DEL"),
+                    createButtonsVertical("NEG"),
                     createButtonsVertical("=")
                   ]),
 
@@ -351,8 +337,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ]),
               new Row(
                   children: [
-                    createButtonsHorizontal("CLEAR"),
+                    createButtonsHorizontal("CL"),
                     createButtonsHorizontal("DEL"),
+                    createButtonsHorizontal("NEG"),
                     createButtonsHorizontal("=")
                   ]),
 
