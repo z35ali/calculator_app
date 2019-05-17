@@ -113,9 +113,9 @@ class _MyHomePageState extends State<MyHomePage> {
           fontSize: 20.0,
           fontWeight: FontWeight.bold
         )),
-        onPressed: () => {
+        onPressed: () =>
           buttonPressed(buttonText)
-        },
+        ,
       ),
     );
   }
