@@ -50,26 +50,41 @@ class _MyHomePageState extends State<MyHomePage> {
   double num2 = 0.0;
   String operand = ""; // +, -, X, or /
   bool nextNum = false;
+  String expression = "";
+  String firstOperand = "";
+
 
 
   buttonPressed(String buttonText){
 
     if (buttonText == "CLEAR") {
       _output = "";
+      expression = "";
       num1 = 0.0;
       num2 = 0.0;
       operand = ""; // +, -, X, or /
       nextNum = false;
+      firstOperand = "";
     }else if (buttonText == "DEL"){
-    if (_output.length > 1) {
+    if (_output.length > 0) {
       _output = _output.substring(0, output.length - 1);
 
     }
-    }else if (buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/"){
-
+    }else if (buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/") {
       num1 = double.parse(output);
       operand = buttonText;
       nextNum = true;
+
+
+      if (firstOperand == "") {
+        firstOperand = operand;
+        expression += " " + operand + " ";
+      }else{
+        int firstSpace = expression.indexOf(" ");
+        expression = expression.substring(0, firstSpace+1) + operand  + expression.substring(firstSpace+2, expression.length);
+        num1 = double.parse(expression.substring(0, firstSpace+1));
+      }
+
 
 
 
@@ -80,9 +95,13 @@ class _MyHomePageState extends State<MyHomePage> {
       }else{
 
         _output = _output + buttonText;
+        expression += buttonText;
+
+
       }
     }else if (buttonText == "="){
       num2 = double.parse(output);
+      expression += " = ";
 
       if (operand == "+"){
         _output = (num1 + num2).toString();
@@ -96,9 +115,10 @@ class _MyHomePageState extends State<MyHomePage> {
       if (operand == "/"){
         _output = (num1 / num2).toString();
       }
+      print(num1.toString()+ " " +operand+ " "+ num2.toString());
       num1 = 0.0;
       num2 = 0.0;
-      operand = "0.0";
+      operand = "";
 
 
 
@@ -106,19 +126,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (nextNum){
         _output = "";
-        nextNum = false;
-      }
         _output = _output + buttonText;
-      
+        expression += _output;
+        nextNum = false;
+      }else{
+        _output = _output + buttonText;
+        expression += buttonText;
+      }
+
 
 
     }
 
 
     setState(() {
-      if (_output.toString().length > 8 )
-      output =  _output.substring(0,8);
-      else
+      if (_output.toString().length > 8 ) {
+        output = _output;
+
+      } else
         output = _output;
     });
 
@@ -205,8 +230,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   vertical: 24.0,
                   horizontal: 12.0
               ),
-              child: new Text(output, style: new TextStyle(
-                  fontSize: 48.0,
+              child: new Text(expression, style: new TextStyle(
+                  fontSize: 28.0,
                   fontWeight: FontWeight.bold
               ))),
       new Container(
@@ -215,7 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
               vertical: 24.0,
               horizontal: 12.0
           ),
-          child: new Text("Prev:  " + num1.toString(), style: new TextStyle(
+          child: new Text(output, style: new TextStyle(
               fontSize: 48.0,
               fontWeight: FontWeight.bold
           ))),
