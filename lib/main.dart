@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Calculator',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -162,6 +162,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }else{
       buttonColor = Colors.white;
       textColor = Colors.black;
+    }
+    if (buttonText == operand){
+      buttonColor = Colors.black26;
+      textColor = Colors.white;
     }
     return new Expanded( // Buttons takes up all vertical space
       child: new RaisedButton(
