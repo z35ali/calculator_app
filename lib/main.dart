@@ -44,27 +44,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String output = "0";
-  String _output = "0";
+  String output = "";
+  String _output = "";
   double num1 = 0.0;
   double num2 = 0.0;
   String operand = ""; // +, -, X, or /
-  bool decimal = false;
+  bool nextNum = false;
 
 
   buttonPressed(String buttonText){
 
-    if (buttonText == "CLEAR"){
-      _output = "0";
+    if (buttonText == "CLEAR") {
+      _output = "";
       num1 = 0.0;
       num2 = 0.0;
       operand = ""; // +, -, X, or /
-      decimal = false;
+      nextNum = false;
+    }else if (buttonText == "DEL"){
+    if (_output.length > 1) {
+      _output = _output.substring(0, output.length - 1);
+
+    }
     }else if (buttonText == "+" || buttonText == "-" || buttonText == "X" || buttonText == "/"){
 
       num1 = double.parse(output);
       operand = buttonText;
-      decimal = false;
+      nextNum = true;
 
 
 
@@ -73,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
         print("Already has a decimal");
         return;
       }else{
-        decimal = true;
+
         _output = _output + buttonText;
       }
     }else if (buttonText == "="){
@@ -98,18 +103,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
     }else{
-      print(decimal);
-      if (!decimal) {
+
+      if (nextNum){
         _output = "";
+        nextNum = false;
       }
-      _output = _output + buttonText;
+        _output = _output + buttonText;
+      
+
 
     }
 
 
     setState(() {
       if (_output.toString().length > 8 )
-      output = double.parse(_output).toStringAsFixed(8);
+      output =  _output.substring(0,8);
       else
         output = _output;
     });
@@ -250,6 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
               new Row(
                   children: [
                     createButtonsVertical("CLEAR"),
+                    createButtonsVertical("DEL"),
                     createButtonsVertical("=")
                   ]),
 
@@ -313,6 +322,7 @@ class _MyHomePageState extends State<MyHomePage> {
               new Row(
                   children: [
                     createButtonsHorizontal("CLEAR"),
+                    createButtonsHorizontal("DEL"),
                     createButtonsHorizontal("=")
                   ]),
 
