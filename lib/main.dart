@@ -201,6 +201,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontSize: 48.0,
                   fontWeight: FontWeight.bold
               ))),
+      new Container(
+          alignment: Alignment.centerRight ,
+          padding: new EdgeInsets.symmetric(
+              vertical: 24.0,
+              horizontal: 12.0
+          ),
+          child: new Text("Prev:  " + num1.toString(), style: new TextStyle(
+              fontSize: 48.0,
+              fontWeight: FontWeight.bold
+          ))),
 
           new Expanded(child: new Divider(
               color: Colors.white
