@@ -317,10 +317,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   horizontal: 12.0
               ),
               child: new Text(output, style: new TextStyle(
-                  fontSize: 48.0,
+                  fontSize: 30.0,
                   fontWeight: FontWeight.bold
               ))),
-
+          new Container(
+              alignment: Alignment.centerRight ,
+              padding: new EdgeInsets.symmetric(
+                  vertical: 3.0,
+                  horizontal: 12.0
+              ),
+              child: new Text(num1.toString() + " " + operand, style: new TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold
+              ))),
           new Expanded(child: new Divider(
               color: Colors.white
           ),
